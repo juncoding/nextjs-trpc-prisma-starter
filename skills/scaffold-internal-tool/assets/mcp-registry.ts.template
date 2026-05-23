@@ -1,0 +1,44 @@
+// src/server/mcp/registry.ts
+//
+// Maps MCP tool names to their handlers. Each tool wraps a service method,
+// inheriting its permission checks and audit logging.
+//
+// Add new tools by registering them here and creating a file in tools/.
+
+import "server-only";
+import { exampleSearchTool } from "./tools/_example-search";
+
+type ToolHandler = (input: unknown, userId: string) => Promise<unknown>;
+
+const tools: Record<string, { description: string; handler: ToolHandler; inputSchema: object }> = {
+  example_search: exampleSearchTool,
+};
+
+export const mcpRegistry = {
+  list() {
+    return Object.entries(tools).map(([name, t]) => ({
+      name,
+      description: t.description,
+      inputSchema: t.inputSchema,
+    }));
+  },
+
+  async handle(req: Request, userId: string) {
+    const body = (await req.json()) as { method: string; params?: { name?: string; arguments?: unknown } };
+
+    if (body.method === "tools/list") {
+      return Response.json({ tools: mcpRegistry.list() });
+    }
+
+    if (body.method === "tools/call") {
+      const name = body.params?.name;
+      if (!name || !tools[name]) {
+        return Response.json({ error: `Unknown tool: ${name}` }, { status: 400 });
+      }
+      const result = await tools[name].handler(body.params?.arguments, userId);
+      return Response.json({ content: [{ type: "text", text: JSON.stringify(result) }] });
+    }
+
+    return Response.json({ error: `Unknown method: ${body.method}` }, { status: 400 });
+  },
+};

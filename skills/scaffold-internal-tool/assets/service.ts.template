@@ -1,0 +1,55 @@
+// src/server/modules/_example/_example.service.ts
+//
+// The canonical service shape. Copy this when creating new modules.
+//
+// Rules:
+//   1. First argument is ALWAYS userId — permission checks live here.
+//   2. Validate inputs via the module's Zod schema before touching the DB.
+//   3. Mutations run inside db.$transaction with the audit call inside the tx.
+//   4. Services are framework-agnostic — same code is called from tRPC, MCP, cron, etc.
+
+import "server-only";
+import { z } from "zod";
+import { db } from "@/server/db/client";
+{{#IF_AUTH}}
+import { requirePermission } from "@/server/auth/permissions";
+{{/IF_AUTH}}
+import {
+  CreateExampleSchema,
+  ListExampleSchema,
+  type CreateExample,
+  type ListExample,
+} from "./_example.schema";
+
+export const exampleService = {
+  async list(userId: string, input: ListExample) {
+    {{#IF_AUTH}}
+    await requirePermission(userId, "example:read");
+    {{/IF_AUTH}}
+    const filters = ListExampleSchema.parse(input);
+    return db.example.findMany({
+      where: filters.q ? { name: { contains: filters.q } } : undefined,
+      take: filters.limit,
+      orderBy: { createdAt: "desc" },
+    });
+  },
+
+  async findById(userId: string, id: string) {
+    {{#IF_AUTH}}
+    await requirePermission(userId, "example:read");
+    {{/IF_AUTH}}
+    return db.example.findUnique({ where: { id } });
+  },
+
+  async create(userId: string, input: CreateExample) {
+    {{#IF_AUTH}}
+    await requirePermission(userId, "example:write");
+    {{/IF_AUTH}}
+    const data = CreateExampleSchema.parse(input);
+    return db.$transaction(async (tx) => {
+      const created = await tx.example.create({ data });
+      // await auditLog(tx, { userId, action: "example.created", entityId: created.id });
+      return created;
+    });
+  },
+};

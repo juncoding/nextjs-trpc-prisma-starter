@@ -1,0 +1,49 @@
+// src/app/providers.tsx
+//
+// Mounts tRPC + React Query. Wraps the whole app from root layout.
+// This file is a CLIENT component — it must be in the client tree.
+
+"use client";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { httpBatchLink } from "@trpc/client";
+import { useState } from "react";
+import superjson from "superjson";
+import { api } from "@/lib/trpc-react";
+import { env } from "@/env";
+
+function getBaseUrl() {
+  if (typeof window !== "undefined") return "";
+  return env.NEXT_PUBLIC_APP_URL;
+}
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 30_000, // 30s — tune per feature
+            refetchOnWindowFocus: false,
+          },
+        },
+      })
+  );
+
+  const [trpcClient] = useState(() =>
+    api.createClient({
+      links: [
+        httpBatchLink({
+          url: `${getBaseUrl()}/api/trpc`,
+          transformer: superjson,
+        }),
+      ],
+    })
+  );
+
+  return (
+    <api.Provider client={trpcClient} queryClient={queryClient}>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </api.Provider>
+  );
+}

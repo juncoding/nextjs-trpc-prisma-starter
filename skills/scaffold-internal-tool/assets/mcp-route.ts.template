@@ -1,0 +1,19 @@
+// src/app/api/mcp/route.ts
+//
+// MCP (Model Context Protocol) entry point.
+// Streamable HTTP. Stateless. OAuth provided by Better Auth's `mcp` plugin.
+//
+// AI clients (Claude Desktop, Cursor, etc.) hit this with OAuth tokens; each
+// tool call goes through `withMcpAuth` so the handler receives a real userId.
+
+import { auth } from "@/server/auth";
+import { mcpRegistry } from "@/server/mcp/registry";
+import { withMcpAuth } from "better-auth/plugins/mcp";
+
+export const POST = withMcpAuth(auth, async (req, session) => {
+  // session.userId is non-null here — withMcpAuth validates the OAuth token.
+  return mcpRegistry.handle(req, session.userId);
+});
+
+// MCP discovery endpoints (.well-known/oauth-*) are emitted by Better Auth's
+// mcp plugin at /api/auth/* — no extra handlers needed here.

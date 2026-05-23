@@ -1,0 +1,20 @@
+{
+  "name": "nextjs-trpc-prisma-starter",
+  "description": "Scaffold and maintain lightweight internal management systems on Next.js + tRPC + Prisma in SPA / client-component mode. Bootstraps a new project (interactive Q&A), generates the canonical folder structure, wires up auth / cache / MCP on demand, and ships reference patterns for services, tRPC procedures, and testing.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Bill Zhou"
+  },
+  "license": "MIT",
+  "keywords": [
+    "nextjs",
+    "trpc",
+    "prisma",
+    "scaffolding",
+    "starter",
+    "internal-tool",
+    "spa",
+    "react-query",
+    "mcp"
+  ]
+}

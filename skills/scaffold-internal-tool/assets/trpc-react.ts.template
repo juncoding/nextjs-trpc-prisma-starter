@@ -1,0 +1,12 @@
+// src/lib/trpc-react.ts
+//
+// Typed client-side tRPC + React Query hooks.
+// In any client component:
+//   import { api } from "@/lib/trpc-react";
+//   const { data } = api.example.list.useQuery({ limit: 10 });
+//   const create = api.example.create.useMutation();
+
+import { createTRPCReact } from "@trpc/react-query";
+import type { AppRouter } from "@/server/api/root";
+
+export const api = createTRPCReact<AppRouter>();

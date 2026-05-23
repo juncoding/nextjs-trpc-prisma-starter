@@ -1,0 +1,25 @@
+// src/server/mcp/tools/_example-search.ts
+//
+// Sample MCP tool. The pattern:
+//   - Validate input with the SAME Zod schema as the tRPC procedure.
+//   - Call the SAME service method (with userId from OAuth).
+//   - Permission + audit inherited unchanged.
+
+import "server-only";
+import { ListExampleSchema } from "@/server/modules/_example/_example.schema";
+import { exampleService } from "@/server/modules/_example/_example.service";
+
+export const exampleSearchTool = {
+  description: "Search examples. Returns up to 100 matching rows.",
+  inputSchema: {
+    type: "object",
+    properties: {
+      q: { type: "string", description: "Substring to match in the name." },
+      limit: { type: "number", description: "Max rows to return.", default: 20, maximum: 100 },
+    },
+  },
+  async handler(rawInput: unknown, userId: string) {
+    const input = ListExampleSchema.parse(rawInput);
+    return exampleService.list(userId, input);
+  },
+};

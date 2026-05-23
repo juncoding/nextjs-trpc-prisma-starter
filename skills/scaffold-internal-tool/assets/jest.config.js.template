@@ -1,0 +1,17 @@
+// jest.config.js
+//
+// Jest setup. Aliases `server-only` to a stub so service tests can import
+// server modules without exploding. Tests are colocated as *.spec.ts files
+// next to the code they test.
+
+/** @type {import('jest').Config} */
+module.exports = {
+  preset: "ts-jest",
+  testEnvironment: "node",
+  moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/src/$1",
+    "^server-only$": "<rootDir>/tests/stubs/server-only.ts",
+  },
+  testMatch: ["<rootDir>/src/**/*.spec.ts", "<rootDir>/src/**/*.spec.tsx"],
+  setupFilesAfterEach: ["<rootDir>/tests/setup.ts"],
+};

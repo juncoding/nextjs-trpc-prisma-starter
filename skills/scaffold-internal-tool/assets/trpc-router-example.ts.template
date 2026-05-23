@@ -1,0 +1,27 @@
+// src/server/api/routers/_example.ts
+//
+// Sample router showing the canonical shape:
+//   - .input(zodSchema) for validation
+//   - protectedProcedure when session required
+//   - delegate to service with ctx.session.user.id as first arg
+//
+// Routers are DUMB PIPES. Business logic lives in the service.
+
+import { z } from "zod";
+import { createTRPCRouter, {{AUTH_PROCEDURE}} } from "../trpc";
+import { exampleService } from "@/server/modules/_example/_example.service";
+import { CreateExampleSchema, ListExampleSchema } from "@/server/modules/_example/_example.schema";
+
+export const exampleRouter = createTRPCRouter({
+  list: {{AUTH_PROCEDURE}}
+    .input(ListExampleSchema)
+    .query(({ ctx, input }) => exampleService.list(ctx.session.user.id, input)),
+
+  getById: {{AUTH_PROCEDURE}}
+    .input(z.object({ id: z.string() }))
+    .query(({ ctx, input }) => exampleService.findById(ctx.session.user.id, input.id)),
+
+  create: {{AUTH_PROCEDURE}}
+    .input(CreateExampleSchema)
+    .mutation(({ ctx, input }) => exampleService.create(ctx.session.user.id, input)),
+});

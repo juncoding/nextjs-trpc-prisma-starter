@@ -1,0 +1,18 @@
+// src/server/modules/_example/_example.schema.ts
+//
+// Zod schemas + types for the _example module.
+// Reused by the tRPC router (.input(schema)) and by client forms (resolver).
+
+import { z } from "zod";
+
+export const CreateExampleSchema = z.object({
+  name: z.string().min(1).max(200),
+  description: z.string().max(2000).optional(),
+});
+export type CreateExample = z.infer<typeof CreateExampleSchema>;
+
+export const ListExampleSchema = z.object({
+  q: z.string().optional(),
+  limit: z.number().int().min(1).max(100).default(20),
+});
+export type ListExample = z.infer<typeof ListExampleSchema>;

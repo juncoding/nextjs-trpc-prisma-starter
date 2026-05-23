@@ -1,0 +1,25 @@
+// src/server/api/root.ts
+//
+// The single AppRouter — every tRPC router is mounted here.
+// Import this on the client to get end-to-end types.
+
+import "server-only";
+import { createTRPCRouter } from "./trpc";
+import { exampleRouter } from "./routers/_example";
+
+export const appRouter = createTRPCRouter({
+  example: exampleRouter,
+  // Add new routers here. Keep the namespace flat — one entry per business module.
+});
+
+export type AppRouter = typeof appRouter;
+
+/**
+ * Server-side caller — for tests, MCP tools, cron jobs, server actions.
+ * Bypasses HTTP — calls procedures as functions with a manually-supplied ctx.
+ *
+ * Example:
+ *   const caller = createCaller(await createTRPCContext({ headers: new Headers() }));
+ *   await caller.example.list({ limit: 10 });
+ */
+export const createCaller = appRouter.createCaller;

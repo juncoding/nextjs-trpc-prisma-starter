@@ -1,0 +1,13 @@
+// next.config.ts
+//
+// Minimal Next.js config. `output: 'standalone'` produces .next/standalone/server.js
+// for Docker deploys — drop the line if shipping to Vercel only.
+
+import type { NextConfig } from "next";
+
+const config: NextConfig = {
+  {{#IF_DEPLOY_DOCKER}}output: "standalone",{{/IF_DEPLOY_DOCKER}}
+  // Add allowedDevOrigins here if developing through a tunnel (e.g. cloudflared).
+};
+
+export default config;

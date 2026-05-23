@@ -1,0 +1,67 @@
+// src/server/api/trpc.ts
+//
+// tRPC plumbing: context, base procedures, error formatter.
+// Routers go in src/server/api/routers/ and are combined in src/server/api/root.ts.
+
+import "server-only";
+import { initTRPC, TRPCError } from "@trpc/server";
+import { ZodError } from "zod";
+import superjson from "superjson";
+{{#IF_AUTH}}
+import { auth } from "@/server/auth";
+{{/IF_AUTH}}
+import { db } from "@/server/db/client";
+
+/**
+ * Context passed to every procedure. Built per-request.
+ * Keep it small — anything in here is allocated for every call.
+ */
+export async function createTRPCContext(opts: { headers: Headers }) {
+  {{#IF_AUTH}}
+  const session = await auth.api.getSession({ headers: opts.headers });
+  return { db, session };
+  {{/IF_AUTH}}
+  {{#IF_NO_AUTH}}
+  return { db };
+  {{/IF_NO_AUTH}}
+}
+export type Context = Awaited<ReturnType<typeof createTRPCContext>>;
+
+const t = initTRPC.context<Context>().create({
+  transformer: superjson,
+  errorFormatter({ shape, error }) {
+    return {
+      ...shape,
+      data: {
+        ...shape.data,
+        zodError: error.cause instanceof ZodError ? error.cause.flatten() : null,
+      },
+    };
+  },
+});
+
+/**
+ * Use this to create new routers.
+ */
+export const createTRPCRouter = t.router;
+
+/**
+ * Unauthenticated procedure — for login, public endpoints, health checks.
+ */
+export const publicProcedure = t.procedure;
+
+{{#IF_AUTH}}
+/**
+ * Authenticated procedure — guarantees ctx.session.user is non-null.
+ * The procedure body still calls service methods that re-check permission
+ * (defense in depth — permission lives in the service, not here).
+ */
+export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
+  if (!ctx.session?.user) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+  return next({
+    ctx: { ...ctx, session: { ...ctx.session, user: ctx.session.user } },
+  });
+});
+{{/IF_AUTH}}
