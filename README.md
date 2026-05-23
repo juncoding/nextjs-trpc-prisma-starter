@@ -16,9 +16,11 @@ Designed for solo developers and small teams building internal tools — admin d
 |---|---|
 | `/scaffold-tool` slash command | Kicks off the bootstrap Q&A — name, location, DB, auth, cache, MCP, deploy target. Generates the full project skeleton. |
 | `/add-cache`, `/add-mcp`, `/add-auth` | Retrofit features into an existing scaffolded project. Updates `CLAUDE.md` as it goes. |
+| `/review-project` | Audits the current project against the architectural invariants — flags missing `server-only`, DB calls in the delivery layer, sneaked-in Server Actions, mutations without permission or audit, router bloat, smuggled state libs. Categorizes findings by severity. |
 | `scaffold-internal-tool` skill | The bootstrap engine. Triggers on intents like "start a new internal tool" / "scaffold an admin dashboard". |
 | `architecture-patterns` skill | Reference patterns for ongoing development — service layer, tRPC procedures, permissions + audit, route handlers, error handling. |
 | `testing-patterns` skill | How to test each layer cleanly. |
+| `review-project` skill | Drift detector. Combines a fast `check-conventions.sh` script with Claude-judgment reads to catch architecture violations before they ship. |
 
 ## Installation
 
