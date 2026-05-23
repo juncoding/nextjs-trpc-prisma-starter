@@ -24,7 +24,39 @@ Designed for solo developers and small teams building internal tools — admin d
 
 ## Installation
 
-This is a [Claude Code plugin](https://docs.claude.com/en/docs/claude-code/plugins). Install via your project's `.claude/settings.json` or your user-level Claude Code config:
+Two install paths — pick what fits.
+
+| Path | What gets installed | Best for |
+|---|---|---|
+| **A. `npx skills` CLI** ([vercel-labs/skills](https://github.com/vercel-labs/skills)) | Skills only (SKILL.md files + references/scripts/assets) | Fastest install, cross-agent (Claude Code, Cursor, Codex, OpenCode, …) |
+| **B. Claude Code plugin** (`/plugin` or `settings.json`) | Skills **+** slash commands **+** plugin manifest | Full experience inside Claude Code, including the `/scaffold-tool` etc. commands |
+
+The skills work the same way under both paths (they trigger on user intent). Path B additionally gives you the explicit slash commands.
+
+### Path A — `npx skills add` (recommended for quick install)
+
+```bash
+# Install everything to ~/.claude/skills/ for Claude Code, globally
+npx skills add juncoding/nextjs-trpc-prisma-starter -g -a claude-code
+
+# Browse what's in the repo without installing
+npx skills add juncoding/nextjs-trpc-prisma-starter --list
+
+# Install just one specific skill
+npx skills add juncoding/nextjs-trpc-prisma-starter --skill architecture-patterns -g -a claude-code
+```
+
+Caveat: the `skills` CLI installs **skills** but not slash commands or the plugin manifest. The skills still trigger on intent (e.g. "scaffold a new internal tool" → `scaffold-internal-tool` skill fires), but you won't be able to type `/scaffold-tool` to invoke explicitly. If you want the slash commands, use Path B instead (or in addition).
+
+### Path B — install as a full Claude Code plugin
+
+Inside Claude Code, run `/plugin` and add this source:
+
+```
+github:juncoding/nextjs-trpc-prisma-starter
+```
+
+Or edit `~/.claude/settings.json` (user-level) / `.claude/settings.json` (project-level) directly:
 
 ```json
 {
@@ -36,13 +68,15 @@ This is a [Claude Code plugin](https://docs.claude.com/en/docs/claude-code/plugi
 }
 ```
 
-Or clone locally and reference by path:
+Restart Claude Code. All 7 skills + 5 slash commands become available.
+
+### Path C — clone locally (for iterating on the plugin itself)
 
 ```bash
-git clone https://github.com/juncoding/nextjs-trpc-prisma-starter ~/Dev/nextjs-trpc-prisma-starter
+git clone git@github.com:juncoding/nextjs-trpc-prisma-starter.git ~/Dev/nextjs-trpc-prisma-starter
 ```
 
-Then in your `~/.claude/settings.json`:
+Then point `source` at the local path:
 
 ```json
 {
@@ -53,6 +87,8 @@ Then in your `~/.claude/settings.json`:
   }
 }
 ```
+
+Local installs pick up edits immediately on Claude Code restart — useful when authoring the plugin.
 
 ## Quick start
 
