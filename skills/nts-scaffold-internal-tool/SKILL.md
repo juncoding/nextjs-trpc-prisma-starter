@@ -86,7 +86,7 @@ Options:
 
 Options:
 - **Skip**
-- **Resend + Handlebars** (mirrors the proven pattern from production ncy-erp)
+- **Resend + Handlebars**
 
 ### 9. Confirm
 
@@ -178,7 +178,7 @@ Execute these steps sequentially. After each step, briefly confirm completion be
 11. **Write the client providers** — `src/app/providers.tsx` wiring tRPC + React Query.
 12. **Write `Dockerfile` + `docker-compose.yml`** if Docker deploy.
 13. **Write `CLAUDE.md`** using `references/claude-md-template.md`, filled in with the choices. This is the contract for future Claude sessions on the project.
-14. **Write `docs/handoff.md`** stub — empty section headers, ready to be filled in as the project grows. Modeled on the ncy-erp handoff style.
+14. **Write `docs/handoff.md`** stub — empty section headers, ready to be filled in as the project grows.
 15. **Write `README.md`** for the project — short, repo-facing.
 16. **`git init`** + first commit `chore: initial scaffold from nextjs-trpc-prisma-starter`.
 17. **Verification step** — run `pnpm install`, `pnpm prisma generate`, `pnpm tsc --noEmit`. Report results. Do not try to run migrations (no DB yet); the user owns that.
