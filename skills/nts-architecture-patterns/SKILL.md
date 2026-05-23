@@ -1,11 +1,11 @@
 ---
-name: architecture-patterns
+name: nts-architecture-patterns
 description: "Reference patterns for ongoing development on a Next.js + tRPC + Prisma project scaffolded with nextjs-trpc-prisma-starter. Use this whenever adding a new module, writing a new tRPC procedure, deciding between tRPC vs route handler vs MCP tool, wiring permissions, structuring services, handling errors, or making any architectural decision in a project that was bootstrapped with this plugin. Triggers on phrases like 'add a new module', 'create a tRPC procedure', 'where should this logic go', 'follow project conventions', or any 'how do I do X in this project' question."
 ---
 
 # Architecture patterns for ongoing development
 
-For projects already scaffolded with `nextjs-trpc-prisma-starter`. Explains the patterns to follow when adding features. Companion to the `scaffold-internal-tool` skill which only handles initial setup.
+For projects already scaffolded with `nextjs-trpc-prisma-starter`. Explains the patterns to follow when adding features. Companion to the `nts-scaffold-internal-tool` skill which only handles initial setup.
 
 ## Use this skill when
 

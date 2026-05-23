@@ -14,13 +14,13 @@ Designed for solo developers and small teams building internal tools — admin d
 
 | Component | Purpose |
 |---|---|
-| `/scaffold-tool` slash command | Kicks off the bootstrap Q&A — name, location, DB, auth, cache, MCP, deploy target. Generates the full project skeleton. |
-| `/add-cache`, `/add-mcp`, `/add-auth` | Retrofit features into an existing scaffolded project. Updates `CLAUDE.md` as it goes. |
-| `/review-project` | Audits the current project against the architectural invariants — flags missing `server-only`, DB calls in the delivery layer, sneaked-in Server Actions, mutations without permission or audit, router bloat, smuggled state libs. Categorizes findings by severity. |
-| `scaffold-internal-tool` skill | The bootstrap engine. Triggers on intents like "start a new internal tool" / "scaffold an admin dashboard". |
-| `architecture-patterns` skill | Reference patterns for ongoing development — service layer, tRPC procedures, permissions + audit, route handlers, error handling. |
-| `testing-patterns` skill | How to test each layer cleanly. |
-| `review-project` skill | Drift detector. Combines a fast `check-conventions.sh` script with Claude-judgment reads to catch architecture violations before they ship. |
+| `/nts-scaffold-tool` slash command | Kicks off the bootstrap Q&A — name, location, DB, auth, cache, MCP, deploy target. Generates the full project skeleton. |
+| `/nts-add-cache`, `/nts-add-mcp`, `/nts-add-auth` | Retrofit features into an existing scaffolded project. Updates `CLAUDE.md` as it goes. |
+| `/nts-review-project` | Audits the current project against the architectural invariants — flags missing `server-only`, DB calls in the delivery layer, sneaked-in Server Actions, mutations without permission or audit, router bloat, smuggled state libs. Categorizes findings by severity. |
+| `nts-scaffold-internal-tool` skill | The bootstrap engine. Triggers on intents like "start a new internal tool" / "scaffold an admin dashboard". |
+| `nts-architecture-patterns` skill | Reference patterns for ongoing development — service layer, tRPC procedures, permissions + audit, route handlers, error handling. |
+| `nts-testing-patterns` skill | How to test each layer cleanly. |
+| `nts-review-project` skill | Drift detector. Combines a fast `check-conventions.sh` script with Claude-judgment reads to catch architecture violations before they ship. |
 
 ## Installation
 
@@ -29,7 +29,7 @@ Two install paths — pick what fits.
 | Path | What gets installed | Best for |
 |---|---|---|
 | **A. `npx skills` CLI** ([vercel-labs/skills](https://github.com/vercel-labs/skills)) | Skills only (SKILL.md files + references/scripts/assets) | Fastest install, cross-agent (Claude Code, Cursor, Codex, OpenCode, …) |
-| **B. Claude Code plugin** (`/plugin` or `settings.json`) | Skills **+** slash commands **+** plugin manifest | Full experience inside Claude Code, including the `/scaffold-tool` etc. commands |
+| **B. Claude Code plugin** (`/plugin` or `settings.json`) | Skills **+** slash commands **+** plugin manifest | Full experience inside Claude Code, including the `/nts-scaffold-tool` etc. commands |
 
 The skills work the same way under both paths (they trigger on user intent). Path B additionally gives you the explicit slash commands.
 
@@ -46,7 +46,9 @@ npx skills add juncoding/nextjs-trpc-prisma-starter --list
 npx skills add juncoding/nextjs-trpc-prisma-starter --skill architecture-patterns -g -a claude-code
 ```
 
-Caveat: the `skills` CLI installs **skills** but not slash commands or the plugin manifest. The skills still trigger on intent (e.g. "scaffold a new internal tool" → `scaffold-internal-tool` skill fires), but you won't be able to type `/scaffold-tool` to invoke explicitly. If you want the slash commands, use Path B instead (or in addition).
+Caveat: the `skills` CLI installs **skills** but not slash commands or the plugin manifest. The skills still trigger on intent (e.g. "scaffold a new internal tool" → `nts-scaffold-internal-tool` skill fires), but you won't be able to type `/nts-scaffold-tool` to invoke explicitly. If you want the slash commands, use Path B instead (or in addition).
+
+All commands and skills are prefixed with `nts-` (short for **n**extjs-**t**rpc-prisma-**s**tarter) so they're unambiguous when other plugins are also installed.
 
 ### Path B — install as a full Claude Code plugin
 
@@ -93,16 +95,16 @@ Local installs pick up edits immediately on Claude Code restart — useful when 
 ## Quick start
 
 1. Open Claude Code in an empty directory (or one you want the project created next to).
-2. Run `/scaffold-tool`.
+2. Run `/nts-scaffold-tool`.
 3. Answer the Q&A: project name, location, database, auth, cache, MCP entry point, deployment target.
 4. Claude scaffolds the project, writes `.env.example` and `CLAUDE.md`, and confirms with a verification run.
 
 Later, retrofit features as needs evolve:
 
 ```
-/add-cache       # Wire Redis + cache helpers
-/add-mcp         # Add the MCP route handler + Better Auth mcp plugin
-/add-auth        # Wire Better Auth if you skipped it initially
+/nts-add-cache       # Wire Redis + cache helpers
+/nts-add-mcp         # Add the MCP route handler + Better Auth mcp plugin
+/nts-add-auth        # Wire Better Auth if you skipped it initially
 ```
 
 Each add-on updates `CLAUDE.md` so the project's documented architecture stays in sync with reality.

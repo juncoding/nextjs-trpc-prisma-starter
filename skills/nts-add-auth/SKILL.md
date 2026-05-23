@@ -1,6 +1,6 @@
 ---
-name: add-auth
-description: "Add Better Auth to an existing project scaffolded with nextjs-trpc-prisma-starter that initially skipped auth. Use this when the user says 'add auth', 'add login', 'wire Better Auth', 'add user accounts', invokes /add-auth, or starts asking permission/session questions in a project without auth wired. Wires up the Better Auth Prisma adapter, session helper, requirePermission helper, /login page (credentials), the auth route handler at /api/auth/[...all], and the User / Session / Account / Verification Prisma models. Updates the tRPC context to include the session and switches the example router from publicProcedure to protectedProcedure."
+name: nts-add-auth
+description: "Add Better Auth to an existing project scaffolded with nextjs-trpc-prisma-starter that initially skipped auth. Use this when the user says 'add auth', 'add login', 'wire Better Auth', 'add user accounts', invokes /nts-add-auth, or starts asking permission/session questions in a project without auth wired. Wires up the Better Auth Prisma adapter, session helper, requirePermission helper, /login page (credentials), the auth route handler at /api/auth/[...all], and the User / Session / Account / Verification Prisma models. Updates the tRPC context to include the session and switches the example router from publicProcedure to protectedProcedure."
 ---
 
 # Add Better Auth to an existing project
@@ -11,7 +11,7 @@ For projects scaffolded without auth that now need it. This is a substantial cha
 
 - User wants user accounts / login / sessions.
 - User says "add auth" / "wire Better Auth" / "we need permissions now".
-- User invokes `/add-auth`.
+- User invokes `/nts-add-auth`.
 
 ## Confirmation flow
 

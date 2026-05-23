@@ -71,9 +71,9 @@ CI runs the same gate.
 
 This project was scaffolded with the `nextjs-trpc-prisma-starter` plugin. Retrofit features via:
 
-- `/add-cache` — wire Redis cache helpers + `docker-compose.yml` service.
-- `/add-mcp` — wire MCP entry point + Better Auth `mcp` plugin.
-- `/add-auth` — wire Better Auth (if skipped at scaffold).
+- `/nts-add-cache` — wire Redis cache helpers + `docker-compose.yml` service.
+- `/nts-add-mcp` — wire MCP entry point + Better Auth `mcp` plugin.
+- `/nts-add-auth` — wire Better Auth (if skipped at scaffold).
 
 Each updates this `CLAUDE.md` automatically.
 

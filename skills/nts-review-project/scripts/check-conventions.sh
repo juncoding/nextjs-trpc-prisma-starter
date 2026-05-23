@@ -3,11 +3,11 @@
 # check-conventions.sh
 #
 # Mechanical checks for projects scaffolded with nextjs-trpc-prisma-starter.
-# Outputs tagged findings the review-project skill parses.
+# Outputs tagged findings the nts-review-project skill parses.
 # Always exits 0 — the skill interprets results, not the shell exit code.
 #
 # Usage: run from the project root.
-#   bash <path-to-plugin>/skills/review-project/scripts/check-conventions.sh
+#   bash <path-to-plugin>/skills/nts-review-project/scripts/check-conventions.sh
 
 set -u
 

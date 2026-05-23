@@ -85,6 +85,6 @@ Every step has a worked example in the plugin's skills.
 
 ## Read more
 
-- `skills/architecture-patterns/SKILL.md` — patterns reference, indexed by task.
-- `skills/testing-patterns/SKILL.md` — how to test each layer.
-- `skills/scaffold-internal-tool/references/folder-structure.md` — the full layout with inline comments.
+- `skills/nts-architecture-patterns/SKILL.md` — patterns reference, indexed by task.
+- `skills/nts-testing-patterns/SKILL.md` — how to test each layer.
+- `skills/nts-scaffold-internal-tool/references/folder-structure.md` — the full layout with inline comments.

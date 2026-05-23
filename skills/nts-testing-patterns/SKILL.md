@@ -1,5 +1,5 @@
 ---
-name: testing-patterns
+name: nts-testing-patterns
 description: "Test-writing patterns for projects scaffolded with nextjs-trpc-prisma-starter. Use whenever the user is writing or reviewing tests in such a project, asks 'how do I test X', wants to add test coverage for a new module, or needs to debug a failing test. Covers service-layer unit tests (the high-value layer), tRPC procedure tests via createCaller (typed, no HTTP), MCP tool tests, route handler tests, and Playwright e2e. Each section explains WHAT to test at that layer and HOW so test effort lands where it pays off."
 ---
 

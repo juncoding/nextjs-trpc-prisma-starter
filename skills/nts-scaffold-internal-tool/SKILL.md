@@ -1,11 +1,11 @@
 ---
-name: scaffold-internal-tool
+name: nts-scaffold-internal-tool
 description: "Scaffold a brand-new lightweight internal management system on Next.js + tRPC + Prisma in SPA / client-component mode. Use this whenever the user wants to start a new internal tool, admin dashboard, back-office app, CRUD app, management system, or operational SaaS starter — even if they don't name the stack. Walks the user through an interactive Q&A (project name, location, database, auth, cache, MCP, deployment target), then generates the canonical folder structure, dependencies, sample tRPC router, sample service, Prisma schema starter, .env.example, and CLAUDE.md."
 ---
 
 # Scaffold a new internal management tool
 
-This skill bootstraps a brand-new project on the **Next.js + tRPC + Prisma in SPA mode** stack. It is the entry point for the `nextjs-trpc-prisma-starter` plugin and is invoked either explicitly via `/scaffold-tool` or when the user expresses intent to start a new internal management system.
+This skill bootstraps a brand-new project on the **Next.js + tRPC + Prisma in SPA mode** stack. It is the entry point for the `nextjs-trpc-prisma-starter` plugin and is invoked either explicitly via `/nts-scaffold-tool` or when the user expresses intent to start a new internal management system.
 
 ## When to use this skill
 
@@ -61,7 +61,7 @@ Skip MongoDB — Prisma supports it but the patterns in `architecture-patterns` 
 Options:
 - **Better Auth (recommended)** — modern, RBAC built-in, MCP plugin available, credentials + magic-link + OAuth providers.
 - **NextAuth / Auth.js** — if the user has prior experience.
-- **Skip for now** — generate without auth wiring; user can run `/add-auth` later.
+- **Skip for now** — generate without auth wiring; user can run `/nts-add-auth` later.
 
 ### 5. Cache
 
@@ -73,7 +73,7 @@ Options:
 
 Options:
 - **Yes (recommended)** — wires `/api/mcp/route.ts` with Better Auth's `mcp` plugin acting as OAuth provider. Adds one `rfq_search`-style example tool. Requires Better Auth (from step 4) — if user skipped auth, warn and offer to enable both.
-- **Skip** — easy to add later via `/add-mcp`.
+- **Skip** — easy to add later via `/nts-add-mcp`.
 
 ### 7. Deployment target
 
@@ -202,7 +202,7 @@ After the scaffold lands, point the user at the next moves:
 - `pnpm dev` to start.
 - Edit `prisma/schema.prisma` to add their first real model.
 - `pnpm prisma migrate dev --name init` to apply.
-- `/add-cache`, `/add-mcp`, `/add-auth` to retrofit later.
+- `/nts-add-cache`, `/nts-add-mcp`, `/nts-add-auth` to retrofit later.
 - See `docs/architecture.md` in the project for ongoing patterns.
 
 ## Sanity guards

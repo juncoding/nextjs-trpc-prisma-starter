@@ -1,5 +1,5 @@
 ---
-name: add-cache
+name: nts-add-cache
 description: "Retrofit Redis caching into an existing project scaffolded with nextjs-trpc-prisma-starter. Use this when the user wants to add Redis, add a cache layer, speed up frequent reads, share cache across processes, or any 'add caching to this project' request. Adds ioredis, a docker-compose redis service, a typed cache helper at src/server/lib/cache.ts, REDIS_URL env, and updates CLAUDE.md to reflect the new dependency. Refuses to run on projects that don't have the scaffolded structure."
 ---
 
@@ -11,7 +11,7 @@ For projects scaffolded with `nextjs-trpc-prisma-starter` that didn't enable cac
 
 - User says "add Redis" / "add caching" / "speed up this query" with the implication that in-process cache isn't enough.
 - A specific service method needs cross-process cache (multiple app containers / horizontal scaling).
-- User invokes `/add-cache`.
+- User invokes `/nts-add-cache`.
 
 Do NOT use when:
 

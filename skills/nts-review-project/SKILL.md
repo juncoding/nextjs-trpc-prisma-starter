@@ -1,11 +1,11 @@
 ---
-name: review-project
-description: "Review an existing project scaffolded with nextjs-trpc-prisma-starter against the architectural invariants and patterns. Use this whenever the user wants to audit project conventions, asks 'does this follow our patterns', wants a pre-PR architecture check, suspects drift, is onboarding a new contributor, or invokes /review-project. Runs a mechanical check script for fast objective violations (missing server-only, DB queries in src/app/, Server Actions present, wrong cache primitives), then samples files for judgment calls, then produces a categorized report grouped by severity (must fix / should fix / notes / passing)."
+name: nts-review-project
+description: "Review an existing project scaffolded with nextjs-trpc-prisma-starter against the architectural invariants and patterns. Use this whenever the user wants to audit project conventions, asks 'does this follow our patterns', wants a pre-PR architecture check, suspects drift, is onboarding a new contributor, or invokes /nts-review-project. Runs a mechanical check script for fast objective violations (missing server-only, DB queries in src/app/, Server Actions present, wrong cache primitives), then samples files for judgment calls, then produces a categorized report grouped by severity (must fix / should fix / notes / passing)."
 ---
 
 # Review project against architecture invariants
 
-For projects scaffolded with `nextjs-trpc-prisma-starter`. Detects drift from the patterns established by the scaffolder and the `architecture-patterns` skill.
+For projects scaffolded with `nextjs-trpc-prisma-starter`. Detects drift from the patterns established by the scaffolder and the `nts-architecture-patterns` skill.
 
 ## Use this skill when
 
@@ -13,7 +13,7 @@ For projects scaffolded with `nextjs-trpc-prisma-starter`. Detects drift from th
 - Before a PR review or merge.
 - After a substantial feature lands, to catch newly-introduced drift.
 - During onboarding — quick health check for an unfamiliar codebase.
-- User invokes `/review-project`.
+- User invokes `/nts-review-project`.
 - User suspects something feels off architecturally.
 
 Do NOT use this skill on:

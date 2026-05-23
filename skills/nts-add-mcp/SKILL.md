@@ -1,6 +1,6 @@
 ---
-name: add-mcp
-description: "Add an MCP (Model Context Protocol) entry point to an existing project scaffolded with nextjs-trpc-prisma-starter. Use this when the user wants AI clients (Claude Desktop, Cursor) to query the project's data over OAuth, mentions MCP, wants to expose tools to AI, or invokes /add-mcp. Wires up /api/mcp/route.ts, the MCP plugin in Better Auth (the project's OAuth provider), the .well-known OAuth discovery endpoints, a tool registry at src/server/mcp/registry.ts, one example tool, and the migration for the three OAuth tables. Requires Better Auth to be wired — if not, prompts to run /add-auth first."
+name: nts-add-mcp
+description: "Add an MCP (Model Context Protocol) entry point to an existing project scaffolded with nextjs-trpc-prisma-starter. Use this when the user wants AI clients (Claude Desktop, Cursor) to query the project's data over OAuth, mentions MCP, wants to expose tools to AI, or invokes /nts-add-mcp. Wires up /api/mcp/route.ts, the MCP plugin in Better Auth (the project's OAuth provider), the .well-known OAuth discovery endpoints, a tool registry at src/server/mcp/registry.ts, one example tool, and the migration for the three OAuth tables. Requires Better Auth to be wired — if not, prompts to run /nts-add-auth first."
 ---
 
 # Add MCP entry point to an existing project
@@ -9,7 +9,7 @@ description: "Add an MCP (Model Context Protocol) entry point to an existing pro
 
 - User wants Claude Desktop, Cursor, or any MCP-compatible AI client to interact with the app.
 - User says "expose this to MCP" / "add MCP tools" / "let AI query the data".
-- User invokes `/add-mcp`.
+- User invokes `/nts-add-mcp`.
 
 ## Prerequisite check
 
@@ -18,7 +18,7 @@ This skill requires **Better Auth** to be wired (the OAuth provider behind the M
 1. Check for `src/server/auth/index.ts` — abort if missing.
 2. Check that Better Auth is in `package.json` dependencies — abort if missing.
 
-If auth isn't wired, tell the user to run `/add-auth` first.
+If auth isn't wired, tell the user to run `/nts-add-auth` first.
 
 ## What this skill does
 
